@@ -4,11 +4,11 @@ public class User {
     private int id;
     private String name;
     //TODO: we can make it ENUM for user type
-    private String type; // this is to represent if user is admin, instructor, mentor, TA or learner
+    private UserType type; // this is to represent if user is admin, instructor, mentor, TA or learner
 
     public User(){}
 
-    public User(int id, String name, String type) {
+    public User(int id, String name, UserType type) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -30,12 +30,11 @@ public class User {
         this.name = name;
     }
 
-    public String getType() {
+    public UserType getUserType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setUserType(UserType type) {
         this.type = type;
     }
-
 }
