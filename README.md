@@ -9,31 +9,36 @@ Hello World
     {
         "id": 1,
         "name": "Govind",
-        "type": "Learner"
+        "userType": "LEARNER"
     },
     {
         "id": 2,
         "name": "Satwik",
-        "type": "Learner"
+        "userType": "LEARNER"
     },
     {
         "id": 3,
         "name": "Dheeraj",
-        "type": "Instructor"
+        "userType": "INSTRUCTOR"
     },
     {
         "id": 4,
         "name": "Utakarsh",
-        "type": "Instructor"
+        "userType": "INSTRUCTOR"
+    },
+    {
+        "id": 5,
+        "name": "Kunal",
+        "userType": "MENTOR"
     }
 ]
 ```
 - GET API - {baseUrl}/users/{id}
 ```postman
 {
-    "id": 1,
-    "name": "Govind",
-    "type": "Learner"
+    "id": 5,
+    "name": "Kunal",
+    "userType": "MENTOR"
 }
 ```
 --------------------------------------------------------------
