@@ -1,5 +1,6 @@
 package com.neog.helloproject.controller;
 
+import com.neog.helloproject.exceptions.ProductNotFoundException;
 import com.neog.helloproject.model.Category;
 import com.neog.helloproject.model.Product;
 import com.neog.helloproject.service.ProductService;
@@ -23,7 +24,7 @@ public class ProductController {
     }
 
     @GetMapping("/products/{id}")
-    public Product getProductById(@PathVariable int id){
+    public Product getProductById(@PathVariable int id) throws ProductNotFoundException {
         Product product = productService.getProductById(id);
         return product;
     }
@@ -35,13 +36,13 @@ public class ProductController {
     }
 
     @PutMapping("/products")
-    public Product updateProduct(@RequestBody Product product){
+    public Product updateProduct(@RequestBody Product product) throws ProductNotFoundException {
         product = productService.updateProduct(product);
         return product;
     }
 
     @DeleteMapping("/products/{id}")
-    public void deleteProduct(@PathVariable int id){
+    public void deleteProduct(@PathVariable int id) throws ProductNotFoundException {
         productService.deleteProduct(id);
     }
 
