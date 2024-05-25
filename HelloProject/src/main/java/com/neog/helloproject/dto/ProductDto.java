@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProductDto {
-    private int id;
+    private Long id;
     private String title, description, category, image;
     private double price;
 

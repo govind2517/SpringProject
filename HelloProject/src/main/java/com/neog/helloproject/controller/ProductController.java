@@ -1,32 +1,40 @@
 package com.neog.helloproject.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.neog.helloproject.dto.ResponseDTO;
 import com.neog.helloproject.exceptions.ProductNotFoundException;
 import com.neog.helloproject.model.Category;
 import com.neog.helloproject.model.Product;
 import com.neog.helloproject.service.ProductService;
+import jakarta.servlet.http.HttpServletRequest;
+import org.apache.coyote.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-public class ProductController {
+public class ProductController extends MasterController {
 
     private ProductService productService;
+
+    private ObjectMapper mapper = new ObjectMapper();
 
     public ProductController(ProductService productService){
         this.productService = productService;
     }
 
     @GetMapping("/products")
-    public List<Product> getProducts(){
+    public ResponseDTO getProducts(HttpServletRequest request){
         List<Product> products = productService.getProducts();
-        return products;
+        return generateResponse(request, mapper.convertValue(products, JsonNode.class).toString());
     }
 
     @GetMapping("/products/{id}")
-    public Product getProductById(@PathVariable int id) throws ProductNotFoundException {
+    public ResponseDTO getProductById(HttpServletRequest request, @PathVariable int id) throws ProductNotFoundException {
         Product product = productService.getProductById(id);
-        return product;
+        return generateResponse(request, mapper.convertValue(product, JsonNode.class).toString());
     }
 
     @PostMapping("/products")
@@ -49,14 +57,14 @@ public class ProductController {
     // Categories
 
     @GetMapping("/products/categories")
-    public List<Category> getCategories(){
+    public ResponseDTO getCategories(HttpServletRequest request){
         List<Category> categories = productService.getCategories();
-        return categories;
+        return generateResponse(request, mapper.convertValue(categories, JsonNode.class).toString());
     }
 
     @GetMapping("/products/categories/{categoryName}")
-    public List<Product> getProductByCatgory(@PathVariable String categoryName){
+    public ResponseDTO getProductByCatgory(HttpServletRequest request, @PathVariable String categoryName){
         List<Product> products = productService.getProductByCategory(categoryName);
-        return products;
+        return generateResponse(request, mapper.convertValue(products, JsonNode.class).toString());
     }
 }

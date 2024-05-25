@@ -24,7 +24,7 @@ public class FakeStoreService implements ProductService{
     }
 
     // this can be changed to function check in db for id exist or not
-    private void checkId(int id) throws ProductNotFoundException {
+    private void checkId(Long id) throws ProductNotFoundException {
         if(id > 20)
             throw new ProductNotFoundException("Product details not exists in db");
     }
@@ -46,7 +46,7 @@ public class FakeStoreService implements ProductService{
 
     @Override
     public Product getProductById(int id) throws ProductNotFoundException {
-        checkId(id);
+        checkId(Long.valueOf(id));
         ProductDto productDto = restTemplate.getForObject(baseUrl+id, ProductDto.class);
         if(productDto == null) return new Product();
         return productDto.toProduct();
@@ -81,7 +81,7 @@ public class FakeStoreService implements ProductService{
 
     @Override
     public void deleteProduct(int id) throws ProductNotFoundException {
-        checkId(id);
+        checkId(Long.valueOf(id));
         restTemplate.delete(baseUrl+id);
     }
 

@@ -1,15 +1,22 @@
 package com.neog.helloproject.model;
 
 import com.neog.helloproject.dto.ProductDto;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Product {
-    private int id;
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+public class Product extends BaseModel{
     private String title, description, imageUrl;
     private double price;
+    @ManyToOne
     private Category category;
 
     public ProductDto toProductDto() {

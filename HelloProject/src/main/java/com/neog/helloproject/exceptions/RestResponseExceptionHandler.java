@@ -19,6 +19,7 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
         dto.setStatus(404);
         ResponseEntity<ResponseDTO> resEntity = new ResponseEntity<>(dto, HttpStatus.NOT_FOUND);
         return resEntity;
+
     }
 
 }
