@@ -1,6 +1,7 @@
 package com.neog.helloproject.model;
 
 import com.neog.helloproject.dto.ProductDto;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -26,5 +27,16 @@ public class Product extends BaseModel{
         dto.setImage(imageUrl);
         dto.setCategory(category.getDescription());
         return dto;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", price=" + price +
+                ", category=" + category +
+                '}';
     }
 }

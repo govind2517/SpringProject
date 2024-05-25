@@ -9,6 +9,7 @@ import com.neog.helloproject.model.Product;
 import com.neog.helloproject.service.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class ProductController extends MasterController {
 
     private ObjectMapper mapper = new ObjectMapper();
 
-    public ProductController(ProductService productService){
+    public ProductController(@Qualifier("productServiceImpl") ProductService productService){
         this.productService = productService;
     }
 
