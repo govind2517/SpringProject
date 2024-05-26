@@ -1,8 +1,10 @@
 package com.neog.helloproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.neog.helloproject.dto.ProductDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +20,7 @@ public class Product extends BaseModel{
     private String title, description, imageUrl;
     private double price;
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public ProductDto toProductDto() {
@@ -29,14 +32,4 @@ public class Product extends BaseModel{
         return dto;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", price=" + price +
-                ", category=" + category +
-                '}';
-    }
 }

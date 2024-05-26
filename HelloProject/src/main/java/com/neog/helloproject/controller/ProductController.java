@@ -59,7 +59,7 @@ public class ProductController extends MasterController {
 
     @GetMapping("/products/categories")
     public ResponseDTO getCategories(HttpServletRequest request){
-        List<Category> categories = productService.getCategories();
+        List<String> categories = productService.getCategories();
         return generateResponse(request, mapper.convertValue(categories, JsonNode.class).toString());
     }
 

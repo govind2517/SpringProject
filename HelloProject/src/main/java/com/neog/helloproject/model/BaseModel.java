@@ -1,5 +1,7 @@
 package com.neog.helloproject.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,7 +22,9 @@ public class BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private LocalDateTime createdDate, modifiedDate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String createdBy, modifiedBy;
-    private Boolean isDeleted;
+    private Boolean isDeleted = false;
 }

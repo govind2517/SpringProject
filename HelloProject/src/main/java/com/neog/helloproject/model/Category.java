@@ -1,7 +1,9 @@
 package com.neog.helloproject.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,15 +20,8 @@ import java.util.List;
 public class Category extends BaseModel{
     private String code, description;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Product> products;
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "code='" + code + '\'' +
-                ", description='" + description +
-                '}';
-    }
 }

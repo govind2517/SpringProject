@@ -86,7 +86,7 @@ public class FakeStoreService implements ProductService{
     }
 
     @Override
-    public List<Category> getCategories() {
+    public List<String> getCategories() {
         ResponseEntity<List<String>> response = restTemplate.exchange(
                 baseUrl+"categories",
                 HttpMethod.GET,
@@ -99,7 +99,7 @@ public class FakeStoreService implements ProductService{
             c.setDescription(cateName);
             categories.add(c);
         }
-        return categories;
+        return List.of();
     }
 
     @Override
