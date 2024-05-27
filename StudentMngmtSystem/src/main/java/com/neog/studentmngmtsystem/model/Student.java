@@ -1,9 +1,22 @@
 package com.neog.studentmngmtsystem.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Student {
     private int id;
     private String name, gender, branch;
     private long contactNo;
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("name", name);
+        params.put("gender", gender);
+        params.put("branch", branch);
+        params.put("contactNo", contactNo);
+        return params;
+    }
 
     public int getId() {
         return id;
@@ -44,4 +57,5 @@ public class Student {
     public void setContactNo(long contactNo) {
         this.contactNo = contactNo;
     }
+
 }
