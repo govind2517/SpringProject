@@ -4,6 +4,7 @@ import com.neog.helloproject.exceptions.ProductNotFoundException;
 import com.neog.helloproject.model.Category;
 import com.neog.helloproject.model.Product;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,11 @@ public class FakeStoreService implements ProductService{
 
     private static String baseUrl = "https://fakestoreapi.com/products/";
     private RestTemplate restTemplate;
+    private RedisTemplate redisTemplate;
 
-    public FakeStoreService(RestTemplate rt) {
+    public FakeStoreService(RestTemplate rt, RedisTemplate redisTemplate) {
         this.restTemplate = rt;
+        this.redisTemplate = redisTemplate;
     }
 
     // this can be changed to function check in db for id exist or not
@@ -47,9 +50,17 @@ public class FakeStoreService implements ProductService{
     @Override
     public Product getProductById(int id) throws ProductNotFoundException {
         checkId(Long.valueOf(id));
+
+        Product productFromRedis = (Product) redisTemplate.opsForHash().get("PRODUCTS", "PROD_"+id);
+        if(productFromRedis!=null){
+            return productFromRedis;
+        }
+
         ProductDto productDto = restTemplate.getForObject(baseUrl+id, ProductDto.class);
-        if(productDto == null) return new Product();
-        return productDto.toProduct();
+        if(productDto == null) throw new ProductNotFoundException("Product details not found.");
+        Product product = productDto.toProduct();
+        redisTemplate.opsForHash().put("PRODUCTS", "PROD_"+id, product);
+        return product;
     }
 
     @Override

@@ -22,7 +22,7 @@ public class ProductController extends MasterController {
 
     private ObjectMapper mapper = new ObjectMapper();
 
-    public ProductController(@Qualifier("productServiceImpl") ProductService productService){
+    public ProductController(@Qualifier("fakeStoreService") ProductService productService){
         this.productService = productService;
     }
 
